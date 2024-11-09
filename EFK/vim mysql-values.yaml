@@ -1,0 +1,14 @@
+auth:
+  rootPassword: "hello1234hello"
+  createDatabase: true
+  database: "twotierbackenddb"
+  username: "secureuser"
+  password: "very-secure-password"
+primary:
+  persistence:
+    enabled: true
+    storageClass: "ebs-sc"
+    existingClaim: mysql-pv-claim
+    accessModes:
+      - ReadWriteOnce
+    size: 20Gi
