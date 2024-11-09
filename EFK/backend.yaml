@@ -1,33 +1,32 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: backend
+  creationTimestamp: null
   labels:
     app: backend
-    app.kubernetes.io/managed-by: Helm
-  annotations:
-    meta.helm.sh/release-name: "{{ .Release.Name }}"
-    meta.helm.sh/release-namespace: "{{ .Release.Namespace }}"
+  name: backend
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
       app: backend
+  strategy: {}
   template:
     metadata:
+      creationTimestamp: null
       labels:
         app: backend
     spec:
       containers:
-        - image: "{{ .Values.image.backend.repository }}:{{ .Values.image.backend.tag }}"
+        - image: "{{ .Values.image.backend.repository}}:{{ .Values.image.backend.tag }}"
           name: n-tier-backend
-          ports:
-            - containerPort: 5000
           readinessProbe:
             httpGet:
               path: /
               port: 5000
             initialDelaySeconds: 10
+          ports:
+            - containerPort: 5000
           livenessProbe:
             httpGet:
               path: /
